@@ -24,6 +24,7 @@ module.exports = {
       'js': 'never',
       'vue': 'never'
     }],
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

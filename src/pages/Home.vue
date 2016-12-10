@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div id="home">
+    <img src="../assets/logo.png">
     <hello></hello>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello';
+import Hello from '../components/Hello';
 
 export default {
   name: 'app',
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-#app {
+#home {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
