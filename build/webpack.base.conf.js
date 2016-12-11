@@ -77,7 +77,15 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      {
+        test: /\.(mp3|wav)(\?.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: utils.assetsPath('audio/[name].[hash:7].[ext]')
+        }
+      },
     ]
   },
   eslint: {
@@ -90,6 +98,10 @@ module.exports = {
         browsers: ['last 2 versions']
       }),
       require('postcss-pxtorem')()
-    ]
+    ],
+    transformToRequire: {
+      audio: 'src',
+      sound: 'src',
+    }
   }
 }
