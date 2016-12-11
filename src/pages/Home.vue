@@ -1,28 +1,16 @@
 <template>
   <div id="home">
-    <img src="../assets/logo.png">
-    <hello></hello>
+    <router-link to="/vibration#air">Vibration</router-link>
+    <router-link to="/vibration#air">Frequency</router-link>
   </div>
 </template>
 
 <script>
-import Hello from '../components/Hello';
-
 export default {
-  name: 'app',
-  components: {
-    Hello,
-  },
+  name: 'home',
 };
 </script>
 
 <style>
-#home {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import '../css/reset.css';
 </style>
