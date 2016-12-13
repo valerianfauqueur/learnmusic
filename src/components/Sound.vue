@@ -3,21 +3,11 @@
 </template>
 
 <script>
-import Tone from 'tone';
+import Howler from 'howler';
 
 export default {
   name: 'bell',
   props: ['frequency', 'src'],
-  methods: {
-    playSound() {
-      const bellSampler = new Tone.Sampler(
-        this.src,
-        () => {
-          bellSampler.triggerAttack(0);
-        }
-      ).toMaster();
-    },
-  },
 };
 </script>
 
