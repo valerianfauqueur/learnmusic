@@ -1,7 +1,7 @@
 <template>
   <div class="vibration">
     <div class='orchestra'></div>
-    <div class='vibration__space'></div>
+    <div id='space' class='vibration__space'></div>
     <div id='air' class='vibration__air'>
       <div class='scroll scroll--top'></div>
       <div class='clouds'>
@@ -9,7 +9,7 @@
       </div>
       <div class='scroll scroll--bottom'></div>
     </div>
-    <div class='vibration__water'>
+    <div id='water' class='vibration__water'>
         <div class='waves'>
           <div class="wave wave_1"></div>
           <div class="wave wave_2"></div>
@@ -23,7 +23,69 @@
 
 <script>
 export default {
+  /* eslint-disable no-undef */
   name: 'vibration',
+  data() {
+    return {
+      lastScrollPosition: false,
+      oneScreenHeight: window.innerHeight ||
+                      document.documentElement.clientHeight ||
+                      document.body.clientHeight,
+      minScrollPos: 0,
+      maxScrollPos: 900,
+      currentlyScrolling: false,
+    };
+  },
+  methods: {
+    scrollToAnchor() {
+      if (!this.currentlyScrolling && this.lastScrollPosition !== false) {
+        this.currentlyScrolling = true;
+        console.log('hi');
+        const currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollDirection = this.lastScrollPosition - currentScrollPos > 0 ? 'up' : 'down';
+        // If scroll pos is top of page you can only scroll down
+        if (scrollDirection === 'up' && currentScrollPos !== this.minScrollPos) {
+          this.scrollTo(currentScrollPos - this.oneScreenHeight, 'up');
+        } else if (scrollDirection === 'down' && currentScrollPos !== this.maxScrollPos) {
+          this.scrollTo(currentScrollPos + this.oneScreenHeight, 'down');
+        }
+      }
+      this.lastScrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    },
+
+    scrollTo(desiredPosition, direction) {
+      const self = this;
+      const scrollSpeed = 10;
+      const currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollRequired = Math.abs(desiredPosition - currentScrollPos) / scrollSpeed;
+      const timeOfScroll = 1500;
+      const timeOff = timeOfScroll / scrollRequired;
+      for (let i = 0; i < scrollRequired; i += 1) {
+        /* eslint-disable no-loop-func */
+        setTimeout(
+          () => {
+            if (direction === 'down') {
+              document.documentElement.scrollTop += scrollSpeed;
+              document.body.scrollTop += scrollSpeed;
+            } else if (direction === 'up') {
+              document.documentElement.scrollTop -= scrollSpeed;
+              document.body.scrollTop -= scrollSpeed;
+            }
+          },
+          timeOff * i
+        );
+        /* eslint-enable no-loop-func */
+      }
+      setTimeout(() => { this.currentlyScrolling = false; }, timeOfScroll + 10);
+    },
+  },
+  mounted() {
+    document.addEventListener('scroll', this.scrollToAnchor);
+  },
+  beforeDestroy() {
+    document.removeEventListener('scroll', this.scrollToAnchor);
+  },
+  /* eslint-enable no-undef */
 };
 </script>
 
@@ -35,6 +97,7 @@ export default {
   width:100%;
   background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="246" height="2000" viewBox="0 0 246 2000"><path fill-rule="evenodd" clip-rule="evenodd" fill="#000" d="M0 2000c50.43 0 72.57-20.522 123-20.522 50.43 0 71.34 20.522 123 20.522V0H0v2000z"/></svg>');
   background-position:bottom left;
+  background-repeat-y: no-repeat;
 }
 
 .vibration__air {
