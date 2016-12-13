@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "tone": "^0.8.0",
+    "howler": "^2.0.2",
     "vue": "^2.1.0",
     "vue-router": "^2.1.1"
   },
