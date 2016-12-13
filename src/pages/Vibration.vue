@@ -22,6 +22,10 @@
 </template>
 
 <script>
+import Howler from 'howler';
+import bellSoundUnderwaterAudio from '../assets/audio/bell/bell_underwater.mp3';
+import bellSoundAirAudio from '../assets/audio/bell/bell.mp3';
+
 export default {
   /* eslint-disable no-undef */
   name: 'vibration',
@@ -29,25 +33,39 @@ export default {
     return {
       lastScrollPosition: false,
       oneScreenHeight: window.innerHeight ||
-                      document.documentElement.clientHeight ||
-                      document.body.clientHeight,
+        document.documentElement.clientHeight ||
+        document.body.clientHeight,
       minScrollPos: 0,
-      maxScrollPos: 900,
+      maxScrollPos: document.body.scrollHeight - this.oneScreenHeight,
       currentlyScrolling: false,
+      currentScrollPos: document.documentElement.scrollTop || document.body.scrollTop,
+      sounds: {
+        air: new Howl({
+          src: [bellSoundAirAudio],
+          loop: true,
+        }),
+        water: new Howl({
+          src: [bellSoundUnderwaterAudio],
+          loop: true,
+        }),
+        currentSound: false,
+        currentEnv: false,
+      },
     };
   },
   methods: {
     scrollToAnchor() {
+      // Update current scroll positon
+      this.currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+      this.playMatchingMatSound();
       if (!this.currentlyScrolling && this.lastScrollPosition !== false) {
         this.currentlyScrolling = true;
-        console.log('hi');
-        const currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollDirection = this.lastScrollPosition - currentScrollPos > 0 ? 'up' : 'down';
+        const scrollDirection = this.lastScrollPosition - this.currentScrollPos > 0 ? 'up' : 'down';
         // If scroll pos is top of page you can only scroll down
-        if (scrollDirection === 'up' && currentScrollPos !== this.minScrollPos) {
-          this.scrollTo(currentScrollPos - this.oneScreenHeight, 'up');
-        } else if (scrollDirection === 'down' && currentScrollPos !== this.maxScrollPos) {
-          this.scrollTo(currentScrollPos + this.oneScreenHeight, 'down');
+        if (scrollDirection === 'up' && this.currentScrollPos !== this.minScrollPos) {
+          this.scrollTo(this.currentScrollPos - this.oneScreenHeight, 'up');
+        } else if (scrollDirection === 'down' && this.currentScrollPos !== this.maxScrollPos) {
+          this.scrollTo(this.currentScrollPos + this.oneScreenHeight, 'down');
         }
       }
       this.lastScrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
@@ -56,8 +74,7 @@ export default {
     scrollTo(desiredPosition, direction) {
       const self = this;
       const scrollSpeed = 10;
-      const currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollRequired = Math.abs(desiredPosition - currentScrollPos) / scrollSpeed;
+      const scrollRequired = Math.abs(desiredPosition - this.currentScrollPos) / scrollSpeed;
       const timeOfScroll = 1500;
       const timeOff = timeOfScroll / scrollRequired;
       for (let i = 0; i < scrollRequired; i += 1) {
@@ -78,12 +95,53 @@ export default {
       }
       setTimeout(() => { this.currentlyScrolling = false; }, timeOfScroll + 10);
     },
+
+    oneScreen() {
+      this.oneScreenHeight = window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      this.maxScrollPos = document.body.scrollHeight - this.oneScreenHeight;
+    },
+
+    playMatchingMatSound() {
+      if (this.currentScrollPos > this.minScrollPos + (this.oneScreenHeight / 2) &&
+      this.currentScrollPos < this.maxScrollPos - (this.oneScreenHeight / 2)) {
+        this.currentEnv = 'air';
+        if (this.lastEnv !== this.currentEnv) {
+          this.currentSound.pause();
+          const currentSoundPos = this.currentSound.seek();
+          this.currentSound = this.sounds.air;
+          this.currentSound.seek(currentSoundPos);
+          this.currentSound.play();
+        }
+      } else if (this.currentScrollPos < this.minScrollPos + this.oneScreenHeight) {
+        this.currentEnv = 'space';
+        if (this.lastEnv !== this.currentEnv) {
+          this.currentSound.stop();
+        }
+      } else if (this.currentScrollPos > this.maxScrollPos - this.oneScreenHeight) {
+        this.currentEnv = 'water';
+        if (this.lastEnv !== this.currentEnv) {
+          this.currentSound.pause();
+          const currentSoundPos = this.currentSound.seek();
+          this.currentSound = this.sounds.water;
+          this.currentSound.seek(currentSoundPos);
+          this.currentSound.play();
+        }
+      }
+      this.lastEnv = this.currentEnv;
+    },
   },
   mounted() {
+    window.addEventListener('resize', this.oneScreen);
     document.addEventListener('scroll', this.scrollToAnchor);
+    this.maxScrollPos = document.body.scrollHeight - this.oneScreenHeight;
+    this.currentSound = this.sounds.air;
   },
   beforeDestroy() {
     document.removeEventListener('scroll', this.scrollToAnchor);
+    window.removeEventListener('resize', this.oneScreen);
+    this.currentSound.stop();
   },
   /* eslint-enable no-undef */
 };
@@ -164,7 +222,7 @@ export default {
 .waves
 {
 	width:100%;
-	height:100vh;
+	height:105vh;
   min-height:10em;
   overflow: hidden;
   position: relative;
