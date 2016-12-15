@@ -3,12 +3,14 @@ import VueRouter from 'vue-router';
 import Home from './pages/Home';
 import Frequency from './pages/Frequency';
 import Vibration from './pages/Vibration';
+import Orchestra from './pages/Orchestra';
 import store from './store';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/orchestre', component: Orchestra },
   { path: '/frequency', component: Frequency },
   { path: '/vibration', component: Vibration },
 ];

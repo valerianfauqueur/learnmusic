@@ -114,6 +114,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@font-face {
+	font-family: 'Didot';
+	src: url('../assets/fonts/hinted-Didot.eot');
+	src: local('Didot'),
+		url('../assets/fonts/hinted-Didot.eot?#iefix') format('embedded-opentype'),
+		url('../assets/fonts/hinted-Didot.woff') format('woff'),
+		url('../assets/fonts/hinted-Didot.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
 
 .orchestra {
   width:100%;
@@ -123,6 +133,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: #5b4d4d;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 
 .orchestra__gameDesc {
