@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1204px" height="295px" viewBox="0 0 1204 295" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="64.1607285%" x2="0.969460487%" y2="64.1607308%" id="linearGradient-1">
+            <stop stop-color="#8D8175" offset="0%"></stop>
+            <stop stop-color="#9E9083" offset="38.2536693%"></stop>
+            <stop stop-color="#B7A595" offset="50.5062181%"></stop>
+            <stop stop-color="#9E9083" offset="62.2456849%"></stop>
+            <stop stop-color="#8D8176" offset="100%"></stop>
+        </linearGradient>
+        <path d="M732.469518,282.945305 C994.376974,269.866822 1189.22585,220.279406 1189.22585,161.104556 C1187.32853,151.657601 1194.54078,119.073688 1183.67584,109.071467 C1115.98896,46.7592431 870.150499,2.18140632 594.865924,2.18140632 C317.617713,2.18140632 74.667779,42.3533621 8.97807118,103.921361 C-3.10742387,115.24855 0.505993669,150.358794 0.505993669,161.104556 C0.505993669,219.774441 192.043601,269.019822 450.572146,282.602533 C449.879538,280.817449 449.522965,278.999801 449.522965,277.156015 C449.522965,252.530636 513.128312,232.567823 591.589485,232.567823 C670.050657,232.567823 733.656004,252.530636 733.656004,277.156015 C733.656004,279.117954 733.252267,281.050298 732.469446,282.945308 Z" id="path-2"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="3" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.100656703 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="homepage-copy-7" transform="translate(-121.000000, -469.000000)">
+            <g id="Group" transform="translate(125.000000, 471.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                </g>
+                <path d="M731.963524,247.054165 C993.87098,233.975683 1188.71986,184.388267 1188.71986,125.213416 C1188.71986,56.059956 922.615855,0 594.35993,0 C266.104005,0 1.13686838e-13,56.059956 1.13686838e-13,125.213416 C1.13686838e-13,183.883302 191.537607,233.128682 450.066152,246.711393 C449.373545,244.92631 449.016971,243.108662 449.016971,241.264875 C449.016971,216.639497 512.622319,196.676683 591.083491,196.676683 C669.544663,196.676683 733.150011,216.639497 733.150011,241.264875 C733.150011,243.226815 732.746273,245.159158 731.963452,247.054169 Z" id="Combined-Shape" fill="#CCBBAA"></path>
+                <path d="M449.432953,248.200414 L449.432953,282.426111" id="Line" stroke="#938476" stroke-linecap="square"></path>
+                <path d="M724.700933,156.172519 C724.700933,156.172519 849.502308,191.624066 883.257787,234.589104" id="Path-5" stroke="#BDAD9D"></path>
+                <path d="M377.5,9.5 L524.5,201.5" id="Line" stroke="#BDAD9D" stroke-linecap="square"></path>
+                <path d="M831.5,11.5 L685.5,207.5" id="Line-Copy" stroke="#BDAD9D" stroke-linecap="square"></path>
+                <path d="M732.326203,248.205711 L733.338437,282.426111" id="Line-Copy-5" stroke="#938476" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>
