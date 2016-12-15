@@ -99,9 +99,5 @@ module.exports = {
       }),
       require('postcss-pxtorem')()
     ],
-    transformToRequire: {
-      audio: 'src',
-      sound: 'src',
-    }
   }
 }
