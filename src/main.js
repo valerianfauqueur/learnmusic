@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from './pages/Home';
 import Frequency from './pages/Frequency';
 import Vibration from './pages/Vibration';
+import store from './store';
 
 Vue.use(VueRouter);
 
@@ -27,4 +28,5 @@ const router = new VueRouter({
 
 const app = new Vue({
   router,
+  store,
 }).$mount('#app');
