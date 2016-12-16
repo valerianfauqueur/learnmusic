@@ -1,11 +1,12 @@
 <template>
   <div class="orchestra">
-    <modal class='question' v-show="showModal"  @close="showModal = false">
+    <modal class='question fix' v-show="showModal"  @close="showModal = false">
       <h3 class='question__text' slot="header">Tu n'as pas encore débloqué cette partie</h3>
       <div slot="footer" @click="showModal = false">
         <buttonLink target="none" text="Fermer"></buttonLink>
       </div>
     </modal>
+    <div class="logo"></div>
     <div class="orchestra__gameDesc">
       <transition name="fade">
         <div v-if="welcomeMsg" class="orchestra__gameDescItem">
@@ -155,7 +156,7 @@ export default {
           if (this.orchestra.wind.locked) {
             this.showModal = true;
           } else {
-            this.$router.replace('/vent');
+            this.$router.replace('/vent#air');
           }
           break;
         default:
@@ -386,6 +387,9 @@ export default {
 }
 .orchestra__navItemButton--game4--locked {
   background-image: url('../assets/img/orchestra/locked-icon-corde.png');
+}
+.fix {
+  margin-left:10%;
 }
 
 </style>

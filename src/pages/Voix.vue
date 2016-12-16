@@ -44,7 +44,7 @@
         <p class='experience__story'>Tu viens de retrouver <span class='ctn-bold'>Caroline</span>, la cantatrice de ton orchestre en pleurs dans sa loge. Elle n’arrive pas à retrouver sa voix.</p>
         <p class='experience__story'>Aide <span class='ctn-bold'>Caroline</span>, à comprendre pourquoi sa voix est plus forte que celle d’un orchestre tout entier.</p>
         <div class='key-note'>&#9834;</div>
-        <p class='experience__story experience__story--explanation'>Pour cela compare la voix de <span class='ctn-bold'>Caroline</span>, et celle de l’orchestre <br />Que remarques-tu ?</p>
+        <p class='experience__story experience__story--explanation'>Pour cela chante avec elle et met deux doigts aux niveaux de ta gorge</p>
       </div>
     </section>
     <div class="ariane">La Voix</div>
@@ -56,8 +56,8 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 import Modal from '../components/Modal';
 import Quizz from '../components/Quizz';
 import ButtonLink from '../components/ButtonLink';
-import bellSoundUnderwaterAudio from '../assets/audio/bell/bell_underwater.mp3';
-import bellSoundAirAudio from '../assets/audio/bell/bell.mp3';
+import bellSoundUnderwaterAudio from '../assets/audio/voix/castafiore.mp3';
+import bellSoundAirAudio from '../assets/audio/voix/orchestre.mp3';
 
 /* eslint-disable no-undef */
 export default {
@@ -110,7 +110,7 @@ export default {
         this.player.voice.seekbar.style =
         'width: ' + parseInt((this.player.voice.audio.seek() / this.player.voice.audio.duration()) * 100, 10) + '%;';
       } else if (type === 'violin') {
-        this.player.violin.seekbar.width =
+        this.player.violin.seekbar.style =
         'width: ' + parseInt((this.player.violin.audio.seek() / this.player.violin.audio.duration()) * 100, 10) + '%;';
       }
     },
@@ -242,8 +242,9 @@ export default {
   top:-10vh;
   width: 200px;
   height:50px;
-  background-color: white;
-  border-radius: 20px;
+  background-image: url('../assets/img/icons/playpause.png');
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 </style>

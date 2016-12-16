@@ -58,8 +58,8 @@
 import Howler from 'howler';
 import { mapActions } from 'vuex';
 import Modal from '../components/Modal';
-import bellSoundUnderwaterAudio from '../assets/audio/bell/bell_underwater.mp3';
-import bellSoundAirAudio from '../assets/audio/bell/bell.mp3';
+import bellSoundUnderwaterAudio from '../assets/audio/vent/songunderwater.mp3';
+import bellSoundAirAudio from '../assets/audio/vent/song.mp3';
 import ButtonLink from '../components/ButtonLink';
 
 export default {
@@ -338,9 +338,9 @@ export default {
 }
 
 .orchestra  {
-  background-image: url('../assets/img/voix/chanteuse.png');
-  width:200px;
-  height:500px;
+  background-image: url('../assets/img/vibration/trompette.png');
+  width:164px;
+  height:357px;
   background-size: cover;
   position:fixed;
   top: calc(50vh - 250px);

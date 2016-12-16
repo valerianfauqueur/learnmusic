@@ -179,8 +179,10 @@ export default {
   .enableBtn {
     position: absolute;
     bottom: 10vh;
-    width: 40px;
-    height: 40px;
-    background-color: black;
+    width: 70px;
+    height: 70px;
+    background-image: url('../assets/img/icons/record.png');
+    background-size: cover;
+    cursor:pointer;
   }
 </style>

@@ -64,6 +64,8 @@ export default {
   width: 50px;
   height: 50px;
   z-index: 10;
+  background-image: url('../assets/img/icons/orchestre_retour.png');
+  background-size: cover;
 
   &:after {
     content:'Retour à l\'orchestre';
@@ -73,6 +75,7 @@ export default {
     text-align: center;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-weight: bold;
+    color: #e3e2e2;
   }
 }
 

@@ -15,10 +15,10 @@
     </modal>
     <div class="experience__container">
       <div class="experience__test">
-        <div class='experience__sound cloche--1'><img src="../assets/img/percu/alarm.png"></div>
-        <div class='experience__sound cloche--2'><img src="../assets/img/percu/alarm.png"></div>
-        <div class='experience__sound cloche--3'><img src="../assets/img/percu/alarm.png"></div>
-        <div class='experience__sound cloche--4'><img src="../assets/img/percu/alarm.png"></div>
+        <div class='experience__sound cloche--1' @click="playSound(0)"><img src="../assets/img/percu/alarm.png"></div>
+        <div class='experience__sound cloche--2' @click="playSound(3)"><img src="../assets/img/percu/alarm.png"></div>
+        <div class='experience__sound cloche--3' @click="playSound(6)"><img src="../assets/img/percu/alarm.png"></div>
+        <div class='experience__sound cloche--4' @click="playSound(9)"><img src="../assets/img/percu/alarm.png"></div>
       </div>
       <div class="experience__over">
         <ButtonLink target="/percussions/2" text="Passer au test"></ButtonLink>
@@ -39,8 +39,10 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import Tone from 'tone';
 import Modal from '../components/Modal';
 import ButtonLink from '../components/ButtonLink';
+import bellSoundAirAudio from '../assets/audio/bell/bell.mp3';
 
 /* eslint-disable no-undef */
 export default {
@@ -63,6 +65,14 @@ export default {
       this.showModal = true;
       this.updateOrchestra('percu');
     },
+    playSound(attack) {
+      const bellSampler = new Tone.Sampler(
+        bellSoundAirAudio,
+        () => {
+          bellSampler.triggerAttack(attack);
+        }
+      ).toMaster();
+    },
   },
 };
 </script>
@@ -83,6 +93,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
 }
 
 
