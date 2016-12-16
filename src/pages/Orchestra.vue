@@ -1,5 +1,11 @@
 <template>
   <div class="orchestra">
+    <modal class='question' v-show="showModal"  @close="showModal = false">
+      <h3 class='question__text' slot="header">Tu n'as pas encore débloqué cette partie</h3>
+      <div slot="footer" @click="showModal = false">
+        <buttonLink target="none" text="Fermer"></buttonLink>
+      </div>
+    </modal>
     <div class="orchestra__gameDesc">
       <transition name="fade">
         <div v-if="welcomeMsg" class="orchestra__gameDescItem">
@@ -60,10 +66,10 @@
       Clique sur un bouton pour partir à la recherche <br> des musiciens manquants
     </div>
     <ul class="orchestra__nav">
-      <li class="orchestra__navItem"><router-link to="/voix"><div v-on:mouseenter="updateDescMsg('sing')" class="orchestra__navItemButton" v-bind:class="buttonClass1"></div></router-link></li>
-      <li class="orchestra__navItem"><router-link to="/vent"><div v-on:mouseenter="updateDescMsg('wind')" class="orchestra__navItemButton" v-bind:class="buttonClass2"></div></router-link></li>
-      <li class="orchestra__navItem"><router-link to="/percussions"><div v-on:mouseenter="updateDescMsg('percu')" class="orchestra__navItemButton" v-bind:class="buttonClass3"></div></router-link></li>
-      <li class="orchestra__navItem"><router-link to="/cordes"><div v-on:mouseenter="updateDescMsg('cordes')" class="orchestra__navItemButton" v-bind:class="buttonClass4"></div></router-link></li>
+      <li class="orchestra__navItem"><div v-on:mouseenter="updateDescMsg('sing')" @click="checkRoute('sing')" class="orchestra__navItemButton" v-bind:class="buttonClass1"></div></li>
+      <li class="orchestra__navItem"><div v-on:mouseenter="updateDescMsg('wind')" @click="checkRoute('wind')" class="orchestra__navItemButton" v-bind:class="buttonClass2"></div></li>
+      <li class="orchestra__navItem"><div v-on:mouseenter="updateDescMsg('percu')" @click="checkRoute('percu')" class="orchestra__navItemButton" v-bind:class="buttonClass3"></div></li>
+      <li class="orchestra__navItem"><div v-on:mouseenter="updateDescMsg('cordes')" @click="checkRoute('cordes')" class="orchestra__navItemButton" v-bind:class="buttonClass4"></div></li>
     </ul>
   </div>
 </template>
@@ -71,9 +77,20 @@
 <script>
 /* eslint-disable no-undef */
 import { mapGetters, mapActions } from 'vuex';
+import Modal from '../components/Modal';
+import ButtonLink from '../components/ButtonLink';
 
 export default {
   name: 'orchestra',
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  components: {
+    Modal,
+    ButtonLink,
+  },
   computed: {
     ...mapGetters({
       orchestra: 'orchestra',
@@ -106,24 +123,50 @@ export default {
       };
     },
   },
-  methods: mapActions([
-    'updateDescMsg',
-  ]),
+  methods: {
+    ...mapActions([
+      'updateDescMsg',
+    ]),
 
+    checkRoute(type) {
+      switch (type) {
+        case 'cordes':
+          if (this.orchestra.cordes.locked) {
+            this.showModal = true;
+          } else {
+            this.$router.replace('/cordes');
+          }
+          break;
+        case 'percu':
+          if (this.orchestra.percu.locked) {
+            this.showModal = true;
+          } else {
+            this.$router.replace('/percussions');
+          }
+          break;
+        case 'sing':
+          if (this.orchestra.sing.locked) {
+            this.showModal = true;
+          } else {
+            this.$router.replace('/voix');
+          }
+          break;
+        case 'wind':
+          if (this.orchestra.wind.locked) {
+            this.showModal = true;
+          } else {
+            this.$router.replace('/vent');
+          }
+          break;
+        default:
+          break;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-	font-family: 'Didot';
-	src: url('../assets/fonts/hinted-Didot.eot');
-	src: local('Didot'),
-		url('../assets/fonts/hinted-Didot.eot?#iefix') format('embedded-opentype'),
-		url('../assets/fonts/hinted-Didot.woff') format('woff'),
-		url('../assets/fonts/hinted-Didot.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
 
 .orchestra {
   width:100%;
@@ -141,11 +184,11 @@ export default {
   top: 5vh;
   display: flex;
   justify-content: center;
+  z-index: 5;
 }
 
 .orchestra__gameDescItem {
   position: fixed;
-
 }
 
 .orchestra__title {
@@ -170,8 +213,7 @@ export default {
   transform: translateX(-50%);
   font-weight: bold;
   letter-spacing: 2px;
-  color: #E3E2E2;
-
+  background-color: #5b4d4d;
   &:before {
     content:'';
     position: absolute;
@@ -190,6 +232,7 @@ export default {
   font-weight: 400;
   display: flex;
   justify-content: center;
+    background-color: #5b4d4d;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -213,7 +256,7 @@ export default {
   position: relative;
   height: 17vw;
   width: 71vw;
-  margin-top: 25vh;
+  margin-top: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -316,6 +359,7 @@ export default {
   height: 7vw;
   margin: 0 1.5vw;
   background-size: cover;
+  cursor: pointer;
 }
 
 .orchestra__navItemButton--game1 {

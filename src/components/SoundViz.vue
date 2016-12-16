@@ -2,6 +2,7 @@
   <div class="sound__viz">
     <div class='sound__frequency'>{{ hertz !== -1 ? parseInt(hertz) : '-' }} Hz</div>
     <canvas v-bind:width="width" v-bind:height="height"></canvas>
+    <div @click="launchCapture" class="enableBtn"></div>
   </div>
 </template>
 
@@ -59,7 +60,7 @@ export default {
       this.waveAnim = window.requestAnimationFrame(this.drawWave);
       this.analyser.getByteTimeDomainData(this.bufUint);
       this.ctx.lineWidth = 2;
-      this.ctx.strokeStyle = 'black';
+      this.ctx.strokeStyle = '#E3E2E2';
       this.ctx.beginPath();
       const waveLineSize = (this.ctxW * 1) / this.bufferSize;
       let x = 0;
@@ -130,21 +131,23 @@ export default {
       }
       return -1;
     },
+    launchCapture() {
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      /* eslint-disable no-undef */
+      this.getUserMedia({
+        audio: {
+          mandatory: {
+            googEchoCancellation: false,
+            googAutoGainControl: false,
+            googNoiseSuppression: false,
+            googHighpassFilter: false,
+          },
+          optional: [],
+        },
+      }, this.gotStream);
+    },
   },
   mounted() {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    /* eslint-disable no-undef */
-    this.getUserMedia({
-      audio: {
-        mandatory: {
-          googEchoCancellation: false,
-          googAutoGainControl: false,
-          googNoiseSuppression: false,
-          googHighpassFilter: false,
-        },
-        optional: [],
-      },
-    }, this.gotStream);
     this.canvas = document.querySelector('.sound__viz canvas');
     this.ctxW = this.canvas.width;
     this.ctxH = this.canvas.height;
@@ -158,5 +161,26 @@ export default {
 </script>
 
 <style>
+  .sound__viz {
+    width:80%;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .sound__frequency {
+    font-size: 48px;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    color: #E3E2E2;
+  }
 
+  .enableBtn {
+    position: absolute;
+    bottom: 10vh;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+  }
 </style>

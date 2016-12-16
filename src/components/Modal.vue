@@ -44,7 +44,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
   transition: opacity .3s ease;
 }
 
@@ -52,15 +51,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:100%;
-  height: 100%;
+  width: 80%;
+  height: 100vh;
 }
 
 .modal {
   width: 50%;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: rgba(0,0,0,0.8);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
@@ -72,6 +71,7 @@ export default {
 
 .modal__body {
   margin: 20px 0;
+  text-align: center;
 }
 
 .modal__header {

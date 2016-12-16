@@ -1,27 +1,46 @@
 <template>
   <div class='btn-spec'>
-    <router-link v-bind:to="target" class="valign__content btn">
-        <span class="bg-large">
-            <span class="line-bottom-left"></span>
-            <span class="line-top-right"></span>
-        </span>
-        <span class="bg-tall">
-            <span class="line-bottom-left"></span>
-            <span class="line-top-right"></span>
-        </span>
-        <span class="bg-medium">
-            <span class="line-bottom-left"></span>
-            <span class="line-top-right"></span>
-        </span>
-        <span class="text">Commencer l'expérience</span>
-    </router-link>
+    <template v-if="target !== 'none'">
+      <router-link v-bind:to="target" class="valign__content btn">
+          <span class="bg-large">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="bg-tall">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="bg-medium">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="text">{{ text }}</span>
+      </router-link>
+    </template>
+    <template v-else>
+      <div class="valign__content btn">
+          <span class="bg-large">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="bg-tall">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="bg-medium">
+              <span class="line-bottom-left"></span>
+              <span class="line-top-right"></span>
+          </span>
+          <span class="text">{{ text }}</span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
   name: 'buttonLink',
-  props: ['target'],
+  props: ['target', 'text'],
 };
 </script>
 
@@ -40,12 +59,14 @@ export default {
     transform: translateZ(0);
     z-index: 10
 }
-.btn a {
+.valign__content {
+  cursor:pointer;
   text-decoration: none;
   color: white;
   position: relative;
-  display: inline-block
+  display: inline-block;
 }
+
 .btn .bg-large {
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
@@ -252,7 +273,6 @@ export default {
 }
 .btn-spec{
   text-align:center;
-  padding:40px;
 }
 @media only screen and (max-width: 700px) {
     .btn-spec{

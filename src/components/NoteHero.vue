@@ -39,12 +39,12 @@ export default {
       }),
       life: 100,
       offsetTop: 100,
-      indicatorBaseColor: 'black',
+      indicatorBaseColor: 'white',
       lines: [],
       notes: [],
       lineParams: {
         width: 2,
-        color: 'black',
+        color: 'white',
         number: 5,
       },
       gameParams: {
@@ -406,13 +406,13 @@ export default {
     },
 
     drawEndMessage(msg) {
-      this.fillStyle = 'black';
+      this.fillStyle = 'white';
       this.ctx.fillRect(0, this.offsetTop, this.ctxW, this.ctxH);
       this.ctx.font = '30px Arial';
       for (let offset = -1, l = msg.length, i = 0; i < l; i += 1, offset += 1) {
         const textSize = this.ctx.measureText(msg[i]).width;
         const quarterOfLine = parseInt(this.ctx.font, 10) / 4;
-        this.ctx.fillStyle = 'white';
+        this.ctx.fillStyle = 'black';
         this.ctx.fillText(
           msg[i],
           (this.ctxW / 2) - (textSize / 2),
@@ -458,7 +458,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid black;
+  border: 3px solid #e3e2e2;
   border-radius: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -466,7 +466,8 @@ export default {
   font-weight: bold;
   font-size: 24px;
   position: relative;
-  background-color: #fff;
+  background-color: #3f3a3b;
+  color: #e3e2e2;
   transition: 0.1s ease all;
 
   &::before {
@@ -475,9 +476,9 @@ export default {
     bottom: -15px;
     width:  calc(100% + 6px);
     height: 100%;
-    border-bottom: 3px solid black;
-    border-left: 3px solid black;
-    border-right: 3px solid black;
+    border-bottom: 3px solid #e3e2e2;
+    border-left: 3px solid #e3e2e2;
+    border-right: 3px solid #e3e2e2;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     transition: 0.1s ease all;

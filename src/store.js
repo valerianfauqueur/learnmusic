@@ -6,6 +6,7 @@ Vue.use(Vuex);
 // root state object.
 // each Vuex instance is just a single state tree.
 const state = {
+  showAnswer: false,
   orchestra: {
     sing: {
       show: false,
@@ -48,10 +49,10 @@ const mutations = {
         break;
       case 'percu':
         state.orchestra.percu.show = true;
-        state.orchestra.corde.locked = false;
+        state.orchestra.cordes.locked = false;
         break;
       case 'sing':
-        state.orchestra.sing.show = false;
+        state.orchestra.sing.show = true;
         state.orchestra.wind.locked = false;
         break;
       case 'wind':
@@ -61,6 +62,9 @@ const mutations = {
       default:
         break;
     }
+  },
+  updateShowAnswer(state) {
+    state.showAnswer = true;
   },
 
   updateDescMsg(state, { game }) {
@@ -107,6 +111,7 @@ const getters = {
   orchestra: state => state.orchestra,
   showGame: state => state.showGame,
   welcomeMsg: state => state.welcomeMsg,
+  showAnswer: state => state.showAnswer,
 };
 
 // A Vuex instance is created by combining the state, mutations, actions,

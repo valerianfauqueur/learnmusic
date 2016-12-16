@@ -1,45 +1,77 @@
 <template>
   <div class="vibration">
-    <div class='orchestra'></div>
-    <ul class='vibration__nav'>
-      <li @click="scrollButton('space')" class="vibration__navItem vibration__navItem--space"></li>
-      <li @click="scrollButton('air')" class="vibration__navItem vibration__navItem--orchestra"></li>
-      <li @click="scrollButton('water')" class="vibration__navItem vibration__navItem--water"></li>
-    </ul>
-    <div id='space' class='vibration__space'>
-      <div class='earth'></div>
-      <div class='decoration satellite'></div>
-    </div>
-    <div id='air' class='vibration__air'>
-      <div class='scroll scroll--top'></div>
-      <div class='clouds'>
-        <div class="clouds__animation"></div>
+    <modal class='question' v-show="showModal"  @close="showModal = false">
+      <h3 class='question__text' slot="header">Explication</p></h3>
+      <div class='question__answers' slot="body">
+        <p>
+          Un son ne peut pas exister sans matière pour vibrer : aucun son ne se propage dans le vide donc dans l’espace on n’entend pas le son, mais toute matière peut transmettre un son dans l’eau on entend le son mais il est altérer.
+        </p>
       </div>
-      <div class='scroll scroll--bottom'></div>
+      <buttonLink slot="footer" target="/orchestre" text="Retour à l'orchestre"></buttonLink>
+    </modal>
+    <div class="logo"></div>
+    <router-link  @click="updateOrchestra('wind')" class="return" to='/orchestre'></router-link>
+    <div class="experience__container">
+      <div class='orchestra'></div>
+      <ul class='vibration__nav'>
+        <li @click="scrollButton('space')" class="vibration__navItem vibration__navItem--space"></li>
+        <li @click="scrollButton('air')" class="vibration__navItem vibration__navItem--orchestra"></li>
+        <li @click="scrollButton('water')" class="vibration__navItem vibration__navItem--water"></li>
+      </ul>
+      <div id='space' class='vibration__space'>
+        <div class='earth'></div>
+        <div class='decoration satellite'></div>
+      </div>
+      <div id='air' class='vibration__air'>
+        <div class='scroll scroll--top'></div>
+        <div class='clouds'>
+          <div class="clouds__animation"></div>
+        </div>
+        <div class='scroll scroll--bottom'></div>
+      </div>
+      <div id='water' class='vibration__water'>
+        <div class='decoration algue--2'></div>
+        <div class='decoration algue--1'></div>
+        <div class='decoration algue--3'></div>
+        <div class='decoration wave--1'></div>
+        <div class='decoration wave--2'></div>
+        <div class='decoration wave--3'></div>
+        <div class='banc__poisson--1'></div>
+        <div class='banc__poisson--2'></div>
+      </div>
     </div>
-    <div id='water' class='vibration__water'>
-      <div class='decoration algue--2'></div>
-      <div class='decoration algue--1'></div>
-      <div class='decoration algue--3'></div>
-      <div class='decoration wave--1'></div>
-      <div class='decoration wave--2'></div>
-      <div class='decoration wave--3'></div>
-      <div class='banc__poisson--1'></div>
-      <div class='banc__poisson--2'></div>
-    </div>
+    <section class='sidebar'>
+      <div class="sidebar__content">
+        <h1 class='experience__title'>Les Instruments<br>à vents</h1>
+        <div class='separator'></div>
+        <p class='experience__story'>Tu te retrouves dans ta salle de concert et tu vois au loin John le trompettiste qui s'entraîne seul sur cette scène.</p>
+        <p class='experience__story'>Fait défiler la page vers le haut puis vers le bas pour écouter la propagation du son dans les différents milieux.</p>
+        <div class='key-note'>&#9834;</div>
+        <p class='experience__story experience__story--explanation'>Demande à ton professeur un casque audio<br><br><br><span v-on:click="showM"><ButtonLink target="none" text="Voir l'explication"></span></p>
+      </div>
+    </section>
+    <div class="ariane">Les Instruments à vent</div>
   </div>
 </template>
 
 <script>
 import Howler from 'howler';
+import { mapActions } from 'vuex';
+import Modal from '../components/Modal';
 import bellSoundUnderwaterAudio from '../assets/audio/bell/bell_underwater.mp3';
 import bellSoundAirAudio from '../assets/audio/bell/bell.mp3';
+import ButtonLink from '../components/ButtonLink';
 
 export default {
   /* eslint-disable no-undef */
   name: 'vibration',
+  components: {
+    ButtonLink,
+    Modal,
+  },
   data() {
     return {
+      showModal: false,
       lastScrollPosition: false,
       oneScreenHeight: window.innerHeight ||
         document.documentElement.clientHeight ||
@@ -63,6 +95,16 @@ export default {
     };
   },
   methods: {
+
+    ...mapActions([
+      'updateOrchestra',
+    ]),
+
+    showM() {
+      this.showModal = true;
+      this.updateOrchestra('wind');
+    },
+
     scrollToAnchor() {
       // Update current scroll positon
       this.currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
@@ -176,9 +218,13 @@ export default {
 
 <style lang="scss" scoped>
 
+
 .decoration {
   position: absolute;
   background-size: cover;
+}
+.experience__container {
+  width:100%;
 }
 
 .vibration__space {
@@ -217,17 +263,17 @@ export default {
   width: 31px;
   height: 65px;
   position: absolute;
-  left: calc(50% - 31px/2);
+  left: calc(40% - 31px/2);
   background-size: cover;
 }
 
 .scroll--bottom {
-  bottom:0;
+  bottom:2vh;
   background-image: url('../assets/img/icons/scrolldown.svg');
 }
 
 .scroll--top{
-  top: 0;
+  top: 2vh;
   background-image: url('../assets/img/icons/scrollup.svg');
 }
 
@@ -292,12 +338,13 @@ export default {
 }
 
 .orchestra  {
-  background-color: yellow;
+  background-image: url('../assets/img/voix/chanteuse.png');
   width:200px;
-  height:200px;
+  height:500px;
+  background-size: cover;
   position:fixed;
-  top: calc(50vh - 100px);
-  left: calc(50% - 100px);
+  top: calc(50vh - 250px);
+  left: calc(40% - 100px);
   z-index: 2;
 }
 
